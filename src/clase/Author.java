@@ -1,8 +1,10 @@
+package clase;
+
 public class Author {
     private String name;
     private String surname;
 
-    // Constructor pentru apelul new Author("Radu Pavel Gheo")
+    // Constructor pentru apelul new clase.Author("Radu Pavel Gheo")
     public Author(String fullName) {
         this.name = fullName;
     }
@@ -13,6 +15,6 @@ public class Author {
     }
 
     public void print() {
-        System.out.println("Author: " + name + (surname != null ? " " + surname : ""));
+        System.out.println("clase.Author: " + name + (surname != null ? " " + surname : ""));
     }
 }

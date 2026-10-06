@@ -1,3 +1,5 @@
+package clase;
+
 public interface Element {
     void print();
     default void add(Element element) {

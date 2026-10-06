@@ -1,3 +1,5 @@
+package clase;
+
 public class Image implements Element {
     private String url;
 
@@ -7,6 +9,6 @@ public class Image implements Element {
 
     @Override
     public void print() {
-        System.out.println("Image with name: " + url);
+        System.out.println("clase.Image with name: " + url);
     }
 }

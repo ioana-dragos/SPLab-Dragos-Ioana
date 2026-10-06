@@ -1,3 +1,5 @@
+package clase;
+
 public class Paragraph implements Element {
     private String text;
 
@@ -7,6 +9,6 @@ public class Paragraph implements Element {
 
     @Override
     public void print() {
-        System.out.println("Paragraph: " + text);
+        System.out.println("clase.Paragraph: " + text);
     }
 }

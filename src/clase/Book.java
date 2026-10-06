@@ -1,3 +1,5 @@
+package clase;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +21,7 @@ public class Book {
     }
 
     public void print() {
-        System.out.println("Book: " + title);
+        System.out.println("clase.Book: " + title);
         System.out.println("\nAuthors:");
         for (Author author : authors) {
             author.print();

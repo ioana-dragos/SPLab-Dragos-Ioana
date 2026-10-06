@@ -1,3 +1,5 @@
+package clase;
+
 public class Table implements Element {
     private String something;
 
@@ -7,6 +9,6 @@ public class Table implements Element {
 
     @Override
     public void print() {
-        System.out.println("Table: " + something);
+        System.out.println("clase.Table: " + something);
     }
 }
