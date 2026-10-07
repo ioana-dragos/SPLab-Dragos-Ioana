@@ -9,6 +9,6 @@ public class Image implements Element {
 
     @Override
     public void print() {
-        System.out.println("clase.Image with name: " + url);
+        System.out.println("Image with name: " + url);
     }
 }
