@@ -42,5 +42,23 @@ public class Main {
 
         System.out.println("\nPrinting with Alignment\n");
         capStrategy.print();
+
+        long startTime = System.currentTimeMillis();
+        ImageProxy img1 = new ImageProxy("Pamant_1.jpg");
+        ImageProxy img2 = new ImageProxy("Pamant_2.jpg");
+        long endTime = System.currentTimeMillis();
+        System.out.println("Timp creare proxy-uri: " + (endTime - startTime) + " ms");
+
+        // se incarca acum imaginea reala (dureaza 5 secunde)
+        startTime = System.currentTimeMillis();
+        img1.print();
+        endTime = System.currentTimeMillis();
+        System.out.println("Timp prima randare: " + (endTime - startTime) + " ms");
+
+        // a doua oara e instant (e deja incarcata in proxy)
+        startTime = System.currentTimeMillis();
+        img1.print();
+        endTime = System.currentTimeMillis();
+        System.out.println("Timp a doua randare: " + (endTime - startTime) + " ms");
     }
 }
