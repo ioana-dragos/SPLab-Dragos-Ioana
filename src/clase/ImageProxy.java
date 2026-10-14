@@ -1,11 +1,15 @@
 package clase;
 
-public class ImageProxy implements Element {
+import java.awt.Dimension;
+
+public class ImageProxy implements Element, Picture {
     private String url;
+    private Dimension dim;
     private Image realImage;
 
     public ImageProxy(String url) {
         this.url = url;
+        this.dim = new Dimension(800, 600);
     }
 
     public Image loadImage() {
@@ -13,6 +17,21 @@ public class ImageProxy implements Element {
             realImage = new Image(url);
         }
         return realImage;
+    }
+
+    @Override
+    public String url() {
+        return this.url;
+    }
+
+    @Override
+    public Dimension dim() {
+        return this.dim;
+    }
+
+    @Override
+    public PictureContent content() {
+        return loadImage().content();
     }
 
     @Override
