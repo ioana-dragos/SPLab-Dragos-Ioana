@@ -1,7 +1,8 @@
 import clase.*;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
+        // --- 1. Test Structură Carte / Composite ---
         Book noapteBuna = new Book("Noapte buna, copii!");
         Author rpGheo = new Author("Radu Pavel Gheo");
         noapteBuna.addAuthor(rpGheo);
@@ -23,7 +24,9 @@ public class Main {
         cap1111.add(new Image("clase.Image subchapter 1.1.1.1"));
 
         noapteBuna.print();
-        Section capStrategy = new Section("Capitolul 1");
+
+        // --- 2. Test Strategy Pattern ---
+        Section capStrategy = new Section("Capitolul Strategy");
         Paragraph p1 = new Paragraph("Paragraph 1");
         capStrategy.add(p1);
         Paragraph p2 = new Paragraph("Paragraph 2");
@@ -33,7 +36,7 @@ public class Main {
         Paragraph p4 = new Paragraph("Paragraph 4");
         capStrategy.add(p4);
 
-        System.out.println("Printing without Alignment\n");
+        System.out.println("\nPrinting without Alignment\n");
         capStrategy.print();
 
         p1.setAlignStrategy(new AlignCenter());
@@ -43,22 +46,46 @@ public class Main {
         System.out.println("\nPrinting with Alignment\n");
         capStrategy.print();
 
+        // --- 3. Test Proxy Pattern ---
         long startTime = System.currentTimeMillis();
         ImageProxy img1 = new ImageProxy("Pamant_1.jpg");
         ImageProxy img2 = new ImageProxy("Pamant_2.jpg");
         long endTime = System.currentTimeMillis();
-        System.out.println("Timp creare proxy-uri: " + (endTime - startTime) + " ms");
+        System.out.println("\nTimp creare proxy-uri: " + (endTime - startTime) + " ms");
 
-        // se incarca acum imaginea reala (dureaza 5 secunde)
         startTime = System.currentTimeMillis();
         img1.print();
         endTime = System.currentTimeMillis();
         System.out.println("Timp prima randare: " + (endTime - startTime) + " ms");
 
-        // a doua oara e instant (e deja incarcata in proxy)
         startTime = System.currentTimeMillis();
         img1.print();
         endTime = System.currentTimeMillis();
-        System.out.println("Timp a doua randare: " + (endTime - startTime) + " ms");
+        System.out.println("Timp a doua randare: " + (endTime - startTime) + " ms\n");
+
+        // --- 4. Test Visitor Pattern (BookStatistics) ---
+        Section capVisitor = new Section("Capitolul 1 - Visitor");
+        Paragraph vp1 = new Paragraph("Paragraph 1");
+        capVisitor.add(vp1);
+        Paragraph vp2 = new Paragraph("Paragraph 2");
+        capVisitor.add(vp2);
+        Paragraph vp3 = new Paragraph("Paragraph 3");
+        capVisitor.add(vp3);
+        Paragraph vp4 = new Paragraph("Paragraph 4");
+        capVisitor.add(vp4);
+        capVisitor.add(new ImageProxy("ImageOne"));
+        capVisitor.add(new Image("ImageTwo"));
+        capVisitor.add(new Paragraph("Some text"));
+        capVisitor.add(new Table("Table 1"));
+
+        BookStatistics stats = new BookStatistics();
+        capVisitor.accept(stats);
+        stats.printStatistics();
+
+        // --- 5. Test Generate Table of Content (GenerateToC) ---
+        GenerateToC tocVisitor = new GenerateToC();
+        noapteBuna.accept(tocVisitor);
+        TableOfContents toc = tocVisitor.getToC();
+        toc.print();
     }
 }
