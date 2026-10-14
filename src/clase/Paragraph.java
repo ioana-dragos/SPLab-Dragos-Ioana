@@ -8,6 +8,26 @@ public class Paragraph implements Element {
         this.text = text;
     }
 
+    @Override
+    public void accept(Visitor visitor) {
+        visitor.visit(this);
+    }
+
+    @Override
+    public void add(Element element) {
+        // Frunză: nu conține alți copii
+    }
+
+    @Override
+    public void remove(Element element) {
+        // Frunză: nu are ce elimina
+    }
+
+    @Override
+    public Element get(int index) {
+        return null;
+    }
+
     public String getText() {
         return text;
     }

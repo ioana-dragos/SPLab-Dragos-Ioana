@@ -11,6 +11,10 @@ public class Section implements Element {
         this.title = title;
     }
 
+    public String getTitle() {
+        return this.title;
+    }
+
     @Override
     public void add(Element element) {
         children.add(element);
@@ -31,6 +35,13 @@ public class Section implements Element {
         System.out.println(title);
         for (Element child : children) {
             child.print();
+        }
+    }
+    @Override
+    public void accept(Visitor visitor) {
+        visitor.visit(this);
+        for (Element child : children) {
+            child.accept(visitor);
         }
     }
 }

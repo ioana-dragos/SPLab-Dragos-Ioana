@@ -30,6 +30,11 @@ public class ImageProxy implements Element, Picture {
     }
 
     @Override
+    public void accept(Visitor visitor) {
+        visitor.visit(this);
+    }
+
+    @Override
     public PictureContent content() {
         return loadImage().content();
     }
@@ -37,5 +42,18 @@ public class ImageProxy implements Element, Picture {
     @Override
     public void print() {
         loadImage().print();
+    }
+
+    @Override
+    public void add(Element element) {
+    }
+
+    @Override
+    public void remove(Element element) {
+    }
+
+    @Override
+    public Element get(int index) {
+        return null;
     }
 }
