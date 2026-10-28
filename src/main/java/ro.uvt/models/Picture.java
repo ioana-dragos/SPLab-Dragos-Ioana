@@ -1,4 +1,4 @@
-package clase;
+package ro.uvt.models;
 
 import java.awt.Dimension;
 

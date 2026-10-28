@@ -1,39 +1,37 @@
 package ro.uvt;
 
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ApplicationContext;
-import ro.uvt.difexample.ClientComponent;
-import ro.uvt.difexample.SingletonComponent;
-import ro.uvt.difexample.TransientComponent;
+import org.springframework.context.annotation.Bean;
+import ro.uvt.models.Author;
+import ro.uvt.models.Book;
+import ro.uvt.models.Paragraph;
+import ro.uvt.models.Section;
+import ro.uvt.persistence.BooksRepository;
 
 @SpringBootApplication
 public class MySpringApplication {
 
     public static void main(String[] args) {
-        // Inițializează contextul Spring Boot
-        ApplicationContext context = SpringApplication.run(MySpringApplication.class, args);
+        SpringApplication.run(MySpringApplication.class, args);
+    }
 
-        // Instanțe de TransientComponent (creează instanțe noi de fiecare dată)
-        TransientComponent transientBean = context.getBean(TransientComponent.class);
-        transientBean.operation();
+    @Bean
+    public CommandLineRunner initData(BooksRepository booksRepository) {
+        return args -> {
+            Book b = new Book("Design Patterns");
+            Author a = new Author("Erich", "Gamma");
+            b.addAuthor(a);
 
-        transientBean = context.getBean(TransientComponent.class);
-        transientBean.operation();
+            Section cap1 = new Section("Capitolul 1");
+            Paragraph p1 = new Paragraph("Moto: Primul paragraf");
+            cap1.add(p1);
 
-        // Instanțe de SingletonComponent (returnează aceeași instanță unică)
-        SingletonComponent singletonBean = context.getBean(SingletonComponent.class);
-        singletonBean.operation();
+            b.addContent(cap1);
 
-        singletonBean = context.getBean(SingletonComponent.class);
-        singletonBean.operation();
-
-        // Obținerea componentei ClientComponent prin clasă
-        ClientComponent c = context.getBean(ClientComponent.class);
-        c.operation();
-
-        // Obținerea componentei ClientComponent după numele bean-ului
-        c = (ClientComponent) context.getBean("clientComponent");
-        c.operation();
+            // Salvează cartea (datorită CascadeType.ALL, se salvează automat autorul, secțiunea și paragraful)
+            booksRepository.save(b);
+        };
     }
 }

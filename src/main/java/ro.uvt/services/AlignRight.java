@@ -1,4 +1,6 @@
-package clase;
+package ro.uvt.services;
+
+import ro.uvt.models.Paragraph;
 
 public class AlignRight implements AlignStrategy {
     @Override
