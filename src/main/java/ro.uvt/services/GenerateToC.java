@@ -1,4 +1,6 @@
-package clase;
+package ro.uvt.services;
+
+import ro.uvt.models.*;
 
 public class GenerateToC implements Visitor {
     private TableOfContents toc = new TableOfContents();
