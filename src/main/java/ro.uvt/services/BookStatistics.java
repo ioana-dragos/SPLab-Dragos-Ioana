@@ -1,6 +1,13 @@
 package ro.uvt.services;
 
-import ro.uvt.models.*;
+
+import ro.uvt.models.Book;
+import ro.uvt.models.Section;
+import ro.uvt.models.TableOfContents;
+import ro.uvt.models.Image;
+import ro.uvt.models.Paragraph;
+import ro.uvt.models.ImageProxy;
+import ro.uvt.models.Table;
 
 public class BookStatistics implements Visitor {
     private int numberOfImages = 0;

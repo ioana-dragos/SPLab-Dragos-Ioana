@@ -1,6 +1,12 @@
 package ro.uvt.services;
 
-import ro.uvt.models.*;
+import ro.uvt.models.Book;
+import ro.uvt.models.Section;
+import ro.uvt.models.TableOfContents;
+import ro.uvt.models.Paragraph;
+import ro.uvt.models.ImageProxy;
+import ro.uvt.models.Image;
+import ro.uvt.models.Table;
 
 public class GenerateToC implements Visitor {
     private TableOfContents toc = new TableOfContents();
