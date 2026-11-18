@@ -4,13 +4,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ro.uvt.commands.CommandContext;
+import ro.uvt.commands.CreateBookCommand;
+import ro.uvt.commands.DeleteBookCommand;
 import ro.uvt.commands.GetAllBooksCommand;
 import ro.uvt.commands.GetBookByIdCommand;
-import ro.uvt.commands.CreateBookCommand;
 import ro.uvt.commands.UpdateBookCommand;
-import ro.uvt.commands.DeleteBookCommand;
 import ro.uvt.models.Book;
 import ro.uvt.persistence.CrudRepository;
+import ro.uvt.services.AllBooksSubject;
 
 import java.util.List;
 
@@ -19,9 +20,11 @@ import java.util.List;
 public class BooksController {
 
     private final CrudRepository<Book, Long> booksRepository;
+    private final AllBooksSubject allBooksSubject;
 
-    public BooksController(CrudRepository<Book, Long> booksRepository) {
+    public BooksController(CrudRepository<Book, Long> booksRepository, AllBooksSubject allBooksSubject) {
         this.booksRepository = booksRepository;
+        this.allBooksSubject = allBooksSubject;
     }
 
     private CommandContext getContext() {
@@ -43,6 +46,7 @@ public class BooksController {
     @PostMapping
     public ResponseEntity<Book> createBook(@RequestBody Book book) {
         Book savedBook = new CreateBookCommand(getContext(), book).execute();
+        allBooksSubject.add(savedBook);
         return new ResponseEntity<>(savedBook, HttpStatus.CREATED);
     }
 

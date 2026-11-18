@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All Books</title>
+</head>
+<body>
+<h1>All Books</h1>
+<button onclick="sendRequest()">Fetch Books</button>
+<div id="sseDiv" style="margin-top: 15px; font-weight: bold;"></div>
+
+<script>
+    let source = null;
+
+    function sendRequest() {
+        if (source !== null) {
+            source.close();
+        }
+
+        source = new EventSource("http://localhost:8080/books-sse");
+
+        source.onopen = function() {
+            console.log("Conectat la SSE!");
+        };
+
+        source.onmessage = function(event) {
+            console.log("Mesaj brut primit de la server:", event.data);
+            try {
+                const data = JSON.parse(event.data);
+                // Dacă primește obiect Book complet, afișează id-ul sau titlul
+                const textAfisat = data.id ? ("ID: " + data.id + " | Titlu: " + (data.title || "")) : event.data;
+                document.getElementById("sseDiv").innerHTML += textAfisat + "<br>";
+            } catch (e) {
+                // Dacă nu e format JSON parsabil, afișează direct textul primit
+                document.getElementById("sseDiv").innerHTML += event.data + "<br>";
+            }
+        };
+
+        source.onerror = function(err) {
+            console.error("Eroare SSE:", err);
+        };
+    }
+</script>
+</body>
+</html>
